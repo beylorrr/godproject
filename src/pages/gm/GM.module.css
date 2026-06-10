@@ -1,0 +1,403 @@
+/* ── Спільні стилі для GM сторінок ── */
+
+.pageTitle {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.4rem; color: var(--gold2);
+  margin: 0 0 22px; letter-spacing: .08em;
+  text-shadow: 0 0 18px rgba(160,30,30,.4), 0 0 6px rgba(212,176,72,.2);
+  border-bottom: 1px solid var(--blood);
+  padding-bottom: 12px;
+  animation: fadeInUp .35s ease both;
+  position: relative;
+}
+.pageTitle::after {
+  content: ''; position: absolute; left: 0; bottom: -1px; width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--blood2), transparent);
+}
+
+/* Card */
+.card {
+  position: relative;
+  background:
+    radial-gradient(ellipse 120% 50% at 50% 0%, rgba(110,20,20,.08), transparent 60%),
+    linear-gradient(165deg, var(--s2), var(--s1));
+  border: 1px solid var(--br2);
+  border-radius: 10px; padding: 18px 20px; margin-bottom: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(245,200,74,.05);
+  animation: fadeInUp .35s ease both;
+}
+
+.hint {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  color: var(--muted); margin: 12px 0;
+}
+.empty {
+  text-align: center; color: var(--muted);
+  font-family: 'EB Garamond', serif; font-size: 1rem; font-style: italic;
+  padding: 40px 0; background: var(--s2);
+  border: 1px solid var(--br); border-radius: 7px;
+}
+
+/* Inputs */
+.input {
+  font-family: 'EB Garamond', serif; font-size: 1.05rem;
+  color: var(--ivory); background: var(--s1);
+  border: 1px solid var(--br2); border-radius: 7px;
+  padding: 10px 14px; outline: none;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+  width: 100%;
+}
+.input:hover { border-color: var(--gold4); }
+.input:focus { border-color: var(--gold4); box-shadow: 0 0 0 2px rgba(245,200,74,.15); background: var(--s2); }
+.textarea {
+  font-family: 'EB Garamond', serif; font-size: .97rem;
+  color: var(--ivory); background: var(--s1);
+  border: 1px solid var(--br); border-radius: 4px;
+  padding: 8px 12px; outline: none; width: 100%; resize: vertical;
+}
+.textarea:focus { border-color: var(--gold4); }
+
+/* Buttons */
+.primaryBtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Cinzel', serif; font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: linear-gradient(to bottom, var(--gold2), var(--gold));
+  color: var(--bg); border: none; border-radius: 4px;
+  padding: 9px 20px; cursor: pointer; transition: filter .15s;
+  white-space: nowrap;
+}
+.primaryBtn:hover:not(:disabled) { filter: brightness(1.1); }
+.primaryBtn:disabled { opacity: .45; cursor: not-allowed; }
+
+.ghostBtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Cinzel', serif; font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  padding: 9px 18px; cursor: pointer; transition: all .15s;
+}
+.ghostBtn:hover { border-color: var(--br2); color: var(--iv2); }
+
+.delBtn {
+  background: transparent; border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  width: 30px; height: 30px; cursor: pointer; font-size: .8rem;
+  transition: all .15s; display: flex; align-items: center; justify-content: center;
+}
+.delBtn:hover { border-color: var(--ember); color: var(--ember2); }
+
+.editBtn {
+  background: transparent; border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  width: 30px; height: 30px; cursor: pointer; font-size: .85rem;
+  transition: all .15s; display: flex; align-items: center; justify-content: center;
+}
+.editBtn:hover { border-color: var(--gold4); color: var(--gold2); }
+
+/* Create row */
+.createRow {
+  display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap;
+}
+.createRow .input { flex: 1; min-width: 180px; }
+
+/* Party list */
+.partyList { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
+.partyCard {
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(160deg, var(--s2), var(--s1));
+  border: 1px solid var(--br);
+  border-radius: 8px; padding: 14px 16px; cursor: pointer;
+  transition: all .18s; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  animation: fadeInUp .3s ease both;
+  position: relative; overflow: hidden;
+}
+.partyCard:hover { border-color: var(--gold4); background: linear-gradient(160deg, var(--s3), var(--s2)); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+.partyActive { border-color: var(--gold) !important; background: linear-gradient(160deg, var(--s3), var(--s2)) !important; box-shadow: 0 0 16px rgba(232,168,48,.2) !important; }
+.partyActive::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold-grad); }
+.partyCardLeft { flex: 1; }
+.partyName { font-family: 'Cinzel', serif; font-size: .98rem; font-weight: 700; color: var(--ivory); letter-spacing:.03em; }
+.partyMeta { font-family: 'EB Garamond', serif; font-size: .88rem; font-style: italic; color: var(--gold3); margin-top: 2px; }
+.partyDesc { font-family: 'EB Garamond', serif; font-size: .88rem; color: var(--iv3); margin-top: 4px; }
+
+/* Player cards grid */
+.playerGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px; margin-bottom: 14px;
+}
+.playerCard {
+  background: linear-gradient(165deg, var(--s3), var(--s2));
+  border: 1px solid var(--br);
+  border-radius: 9px; padding: 13px 15px;
+  cursor: default; transition: all .18s;
+  box-shadow: 0 2px 10px rgba(0,0,0,.35);
+  animation: fadeInUp .3s ease both;
+}
+.playerCard:hover { border-color: var(--br2); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.45); }
+.playerSelected { border-color: var(--gold) !important; background: linear-gradient(165deg, var(--s4), var(--s3)) !important; box-shadow: 0 0 16px rgba(232,168,48,.22) !important; }
+.playerTop {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 3px; cursor: pointer;
+}
+.playerName { font-family: 'Cinzel', serif; font-size: .88rem; font-weight: 700; color: var(--ivory); flex: 1; }
+.playerLvl  { font-family: 'Cinzel', serif; font-size: .72rem; color: var(--gold3); }
+.playerChar { font-family: 'EB Garamond', serif; font-size: .88rem; font-style: italic; color: var(--muted); margin-bottom: 7px; }
+
+.hpBarWrap  { height: 7px; background: var(--s1); border-radius: 4px; overflow: hidden; margin-bottom: 4px; box-shadow: inset 0 1px 3px rgba(0,0,0,.5); }
+.hpBarFill  { height: 100%; background: linear-gradient(90deg, #c8301a, var(--hp-color)); border-radius: 4px; transition: width .4s ease; box-shadow: 0 0 8px rgba(224,64,32,.5); }
+.hpNums     { font-family: 'Cinzel', serif; font-size: .66rem; color: var(--iv3); margin-bottom: 8px; }
+
+.resMini    { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
+.resMiniChip {
+  font-family: 'Cinzel', serif; font-size: .6rem;
+  border: 1px solid; border-radius: 3px; padding: 2px 6px;
+  opacity: .8;
+}
+
+.selectBtn {
+  width: 100%; font-family: 'Cinzel', serif; font-size: .62rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  padding: 5px 0; cursor: pointer; transition: all .15s; margin-top: 4px;
+}
+.selectBtn:hover { border-color: var(--gold4); color: var(--gold2); }
+.selectBtnActive { border-color: var(--gold) !important; color: var(--gold2) !important; background: rgba(232,168,48,.08) !important; }
+
+/* Player detail */
+.playerDetail { margin: 8px 0; border-top: 1px solid var(--br); padding-top: 8px; }
+.resRow   { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+.statsRow { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
+.statMini { display: flex; flex-direction: column; align-items: center; background: var(--s2); border-radius: 3px; padding: 3px 7px; }
+.statMiniLbl { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.statMiniVal { font-family: 'Cinzel', serif; font-size: .88rem; font-weight: 700; color: var(--ivory); }
+.ptsRow { display: flex; flex-wrap: wrap; gap: 8px; font-family: 'Cinzel', serif; font-size: .65rem; color: var(--muted); }
+.ptsRow b { color: var(--gold2); }
+
+/* Action panel */
+.actionPanel { margin-top: 14px; background: var(--s1); border: 1px solid var(--br2); border-radius: 6px; padding: 14px 16px; }
+.actionTabs  { display: flex; gap: 5px; margin-bottom: 12px; flex-wrap: wrap; }
+.actionTab {
+  font-family: 'Cinzel', serif; font-size: .68rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: var(--s2); border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  padding: 6px 14px; cursor: pointer; transition: all .15s;
+}
+.actionTab:hover { border-color: var(--br2); color: var(--iv2); }
+.actionTabActive { background: var(--s4) !important; border-color: var(--gold4) !important; color: var(--gold2) !important; }
+.actionFields { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.actionFields .input { width: auto; min-width: 90px; font-size: 1.1rem; text-align: center; }
+.actionFields .field label { font-size: .72rem; letter-spacing: .04em; margin-bottom: 5px; }
+.actionBtn {
+  font-family: 'Cinzel', serif; font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: var(--ember); border: none; border-radius: 4px; color: #fff;
+  padding: 9px 20px; cursor: pointer; transition: filter .15s; white-space: nowrap;
+}
+.actionBtn:hover:not(:disabled) { filter: brightness(1.15); }
+.actionBtn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Result banner */
+.resultBanner {
+  background: rgba(74,156,42,.14); border: 1px solid var(--green);
+  border-radius: 5px; padding: 10px 16px; margin-bottom: 14px;
+  font-family: 'EB Garamond', serif; font-size: 1rem; font-style: italic;
+  color: var(--green2); animation: fadeIn .3s ease;
+}
+@keyframes fadeIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:none} }
+
+/* Items */
+.filterRow {
+  display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;
+}
+.filterBtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Cinzel', serif; font-size: .65rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  background: var(--s2); border: 1px solid var(--br); border-radius: 4px;
+  color: var(--muted); padding: 6px 12px; cursor: pointer; transition: all .15s;
+}
+.filterBtn:hover { border-color: var(--br2); color: var(--iv2); }
+.filterActive { background: var(--s3) !important; border-color: var(--gold4) !important; color: var(--gold2) !important; }
+.searchInput {
+  flex: 1; min-width: 150px;
+  font-family: 'EB Garamond', serif; font-size: .95rem;
+  color: var(--ivory); background: var(--s1); border: 1px solid var(--br);
+  border-radius: 4px; padding: 7px 12px; outline: none;
+}
+.searchInput:focus { border-color: var(--gold4); }
+.formGrid { display: grid; grid-template-columns: 140px 1fr; gap: 10px; }
+
+.itemList  { display: flex; flex-direction: column; gap: 8px; }
+.itemCard {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--s2); border: 1px solid var(--br);
+  border-radius: 6px; padding: 12px 16px;
+  transition: border-color .15s;
+}
+.itemCard:hover { border-color: var(--br2); }
+.itemLeft  { display: flex; gap: 12px; flex: 1; align-items: flex-start; }
+.itemType  { font-size: 1.3rem; flex-shrink: 0; }
+.itemName  { font-family: 'Cinzel', serif; font-size: .92rem; font-weight: 700; color: var(--ivory); }
+.itemDesc  { font-family: 'EB Garamond', serif; font-size: .92rem; color: var(--iv3); margin-top: 3px; }
+.itemData  { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.itemTag   {
+  font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .06em;
+  background: var(--s3); border: 1px solid var(--br2); border-radius: 3px;
+  padding: 2px 7px; color: var(--muted);
+}
+.itemActions { display: flex; gap: 5px; flex-shrink: 0; }
+
+/* View sheet button */
+.viewSheetBtn {
+  flex: 1;
+  font-family: 'Cinzel', serif; font-size: .6rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--br2);
+  border-radius: 4px; color: var(--muted);
+  padding: 5px 0; cursor: pointer; transition: all .15s;
+}
+.viewSheetBtn:hover { border-color: var(--gold4); color: var(--gold2); }
+
+/* ── Мультивибір та видалення з пачки ── */
+.miniBtn {
+  font-family: 'Cinzel', serif;
+  font-size: .6rem;
+  letter-spacing: .06em;
+  padding: 5px 10px;
+  border: 1px solid var(--gold2, #f5c84a);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--gold2, #f5c84a);
+  cursor: pointer;
+  transition: background .15s;
+}
+.miniBtn:hover { background: color-mix(in srgb, var(--gold2, #f5c84a) 15%, transparent); }
+
+.kickBtn {
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted, #8a7e6a);
+  cursor: pointer;
+  font-size: .8rem;
+  transition: color .15s, background .15s;
+}
+.kickBtn:hover { color: #fff; background: var(--ember2, #b3402a); }
+
+/* ── Мобільна адаптація GM ── */
+@media (max-width: 600px) {
+  .pageTitle { font-size: 1.2rem; margin-bottom: 16px; }
+  .card { padding: 14px 14px; border-radius: 8px; }
+  .createRow { flex-direction: column; align-items: stretch; }
+  .createRow .input { min-width: 0; width: 100%; }
+  .primaryBtn, .actionBtn { width: 100%; padding: 12px 0; }
+  .playerGrid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .playerCard { padding: 11px 12px; }
+  .actionFields { flex-direction: column; align-items: stretch; }
+  .actionFields .input,
+  .actionFields .field { width: 100% !important; min-width: 0 !important; }
+  .actionFields .field input,
+  .actionFields .field select { width: 100% !important; }
+  .actionTabs { display: grid; grid-template-columns: 1fr 1fr; }
+  .actionTab { padding: 9px 0; text-align: center; }
+  .filterRow { gap: 5px; }
+  .itemCard { flex-direction: column; gap: 8px; }
+  .itemActions { width: 100%; justify-content: flex-end; }
+  .formGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 380px) {
+  .playerGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Оновлені картки гравців ── */
+.playerCharName {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold2);
+  letter-spacing: .04em;
+  margin: 4px 0 10px;
+  text-shadow: 0 0 10px rgba(245,200,74,.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Бари ресурсів */
+.resBarRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.resBarLbl {
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  font-weight: 700;
+  width: 24px;
+  flex-shrink: 0;
+  letter-spacing: .04em;
+}
+.resBarWrap {
+  flex: 1;
+  height: 7px;
+  background: var(--s1);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.5);
+}
+.resBarFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width .4s ease;
+  box-shadow: 0 0 6px rgba(0,0,0,.3);
+}
+.resBarNums {
+  font-family: 'Cinzel', serif;
+  font-size: .6rem;
+  color: var(--iv3);
+  width: 46px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Кріти / Вдача — великі */
+.critLuckRow {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+.critLuckChip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border: 1px solid;
+  border-radius: 8px;
+  background: rgba(0,0,0,.25);
+  font-size: 1.15rem;
+  flex: 1;
+  justify-content: center;
+}
+.critLuckVal {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Кутові скоби кованої рами */
+.card::before, .card::after { content:''; position:absolute; width:12px; height:12px; pointer-events:none; }
+.card::before { top:-1px; left:-1px; border-top:2px solid var(--gold3); border-left:2px solid var(--gold3); }
+.card::after  { bottom:-1px; right:-1px; border-bottom:2px solid var(--gold3); border-right:2px solid var(--gold3); }
+
+/* Обертання іконки оновлення журналу */
+.spin { animation: gmSpin 1s linear infinite; }
+@keyframes gmSpin { to { transform: rotate(360deg); } }

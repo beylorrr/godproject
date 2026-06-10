@@ -1,0 +1,52 @@
+.ptsBar {
+  display:flex; align-items:center; gap:12px;
+  background:var(--s2); border:1px solid var(--br2); border-radius:6px;
+  padding:9px 16px; margin-bottom:16px;
+}
+.ptsLabel {
+  font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); flex:1;
+}
+.ptsVal {
+  font-family:'Cinzel Decorative',serif; font-size:1.6rem; font-weight:700;
+}
+.ptsHint {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.06em;
+  color:var(--muted); font-style:italic;
+}
+.statsGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+
+/* Resources — горизонтальні рядки без кольорових смуг внизу */
+.resList { display:flex; flex-direction:column; gap:6px; }
+.resRow {
+  display:grid;
+  grid-template-columns: 28px 1fr 120px auto;
+  align-items:center; gap:10px;
+  background:var(--s2); border:1px solid var(--br);
+  border-radius:5px; padding:8px 14px;
+}
+.resIcon { font-size:1.1rem; text-align:center; }
+.resLabel {
+  font-family:'Marcellus',serif; font-size:.72rem;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
+}
+.resLabel small { opacity:.6; font-size:.6rem; }
+.resBar {
+  height:5px; background:var(--s1); border-radius:3px; overflow:hidden;
+}
+.resBarFill { height:100%; border-radius:3px; transition:width .3s; }
+.resInputs { display:flex; align-items:center; gap:6px; }
+.resInput {
+  font-family:'Cinzel',serif; font-size:1.15rem; font-weight:700;
+  color:var(--ivory); background:var(--s1); border:1px solid var(--br);
+  border-radius:3px; width:72px; text-align:center;
+  padding:4px 6px; outline:none;
+}
+.resInput:focus { border-color:var(--gold4); }
+.resSep { color:var(--muted); font-size:.9rem; }
+
+@media (max-width:700px) {
+  .statsGrid { grid-template-columns:repeat(2,1fr); }
+  .resRow { grid-template-columns:24px 1fr auto; }
+  .resBar { display:none; }
+}

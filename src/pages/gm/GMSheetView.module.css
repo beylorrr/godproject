@@ -1,0 +1,114 @@
+.page { min-height:100vh; background:var(--bg); }
+
+.header {
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  background:var(--s1); border-bottom:1px solid var(--br2);
+  padding:12px 20px;
+}
+.backBtn {
+  font-family:'Cinzel',serif; font-size:.7rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  background:transparent; border:1px solid var(--br);
+  border-radius:4px; color:var(--muted); padding:7px 14px;
+  cursor:pointer; transition:all .15s; white-space:nowrap;
+}
+.backBtn:hover { color:var(--gold2); border-color:var(--gold4); }
+.title { display:flex; align-items:baseline; gap:6px; flex:1; }
+.charName { font-family:'Cinzel',serif; font-size:1.1rem; font-weight:700; color:var(--ivory); }
+.playerName { font-family:'EB Garamond',serif; font-size:.95rem; font-style:italic; color:var(--muted); }
+.levelBadge {
+  font-family:'Cinzel',serif; font-size:.75rem; font-weight:700;
+  background:var(--s3); border:1px solid var(--gold4);
+  border-radius:4px; padding:5px 14px; color:var(--gold2);
+}
+.tabs {
+  display:flex; background:var(--s2); border-bottom:1px solid var(--br);
+  overflow-x:auto;
+}
+.tab {
+  font-family:'Cinzel',serif; font-size:.68rem; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+  background:transparent; border:none; border-bottom:2px solid transparent;
+  color:var(--muted); padding:10px 18px; cursor:pointer;
+  transition:color .15s; white-space:nowrap; margin-bottom:-1px;
+}
+.tab:hover { color:var(--iv2); }
+.tab.active { color:var(--gold2); border-bottom-color:var(--gold); }
+
+.content { padding:20px 24px 60px; max-width:1000px; margin:0 auto; }
+.twoCol { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+/* Resources */
+.resRow {
+  display:grid; grid-template-columns:24px 38px 1fr auto;
+  align-items:center; gap:8px;
+  background:var(--s2); border:1px solid var(--br);
+  border-radius:4px; padding:6px 12px; margin-bottom:5px;
+}
+.resIcon { font-size:1rem; text-align:center; }
+.resLabel { font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.resBar { height:4px; background:var(--s1); border-radius:2px; overflow:hidden; }
+.resBarFill { height:100%; border-radius:2px; transition:width .3s; }
+.resNums { font-family:'Cinzel',serif; font-size:.85rem; font-weight:700; color:var(--ivory); white-space:nowrap; }
+
+/* XP */
+.xpBlock { background:var(--s2); border:1px solid var(--br); border-radius:4px; padding:10px 14px; margin-bottom:4px; }
+.xpRow { display:flex; align-items:center; gap:9px; margin-bottom:8px; }
+.xpLabel { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); width:24px; }
+.xpTrack { flex:1; height:6px; background:var(--s1); border-radius:3px; overflow:hidden; }
+.xpFill { height:100%; background:linear-gradient(to right,var(--gold4),var(--gold2)); border-radius:3px; }
+.xpNums { font-family:'Cinzel',serif; font-size:.65rem; color:var(--muted); white-space:nowrap; }
+.ptsRow { display:flex; gap:6px; }
+.ptChip { flex:1; background:var(--s3); border-radius:3px; padding:5px 8px; text-align:center; }
+.ptLabel { font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:block; }
+.ptVal { font-family:'Cinzel Decorative',serif; font-size:1.1rem; font-weight:700; color:var(--gold2); }
+
+/* Effects */
+.effectChip {
+  display:inline-block; font-family:'EB Garamond',serif; font-size:.92rem;
+  background:rgba(232,168,48,.08); border:1px solid rgba(232,168,48,.2);
+  border-radius:3px; padding:3px 10px; margin:0 4px 4px 0; color:var(--iv2);
+}
+
+/* Skills */
+.empty { font-family:'EB Garamond',serif; font-style:italic; color:var(--muted); font-size:.95rem; }
+.skillCat { margin-bottom:10px; }
+.skillCatLbl { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold3); margin-bottom:5px; }
+.skillChips { display:flex; flex-wrap:wrap; gap:4px; }
+.skillChip {
+  font-family:'EB Garamond',serif; font-size:.88rem;
+  background:rgba(232,168,48,.08); border:1px solid rgba(232,168,48,.2);
+  border-radius:3px; padding:2px 8px; color:var(--iv2);
+}
+.skillLvl { font-family:'Cinzel',serif; font-size:.55rem; color:var(--gold3); margin-left:4px; }
+
+/* Fame */
+.fameGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+.fameChip { border-radius:4px; padding:7px 10px; text-align:center; }
+.fameLabel { font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.1em; text-transform:uppercase; opacity:.7; display:block; margin-bottom:3px; color:#fff; }
+.fameVal { font-family:'Cinzel Decorative',serif; font-size:1.2rem; font-weight:700; color:#fff; }
+
+/* Traits */
+.traitChip { background:var(--s2); border:1px solid var(--br); border-radius:4px; padding:7px 12px; margin-bottom:5px; }
+.traitName { font-family:'EB Garamond',serif; font-size:.95rem; font-weight:600; color:var(--iv2); }
+.traitCost { font-family:'Cinzel',serif; font-size:.65rem; color:var(--muted); margin-left:8px; }
+.traitDesc { display:block; font-family:'EB Garamond',serif; font-size:.88rem; color:var(--iv3); margin-top:3px; }
+
+/* Stats */
+.statsGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.statBox { background:var(--s2); border:1px solid var(--br2); border-radius:5px; padding:12px 8px; text-align:center; }
+.statLbl { font-family:'Marcellus',serif; font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:5px; }
+.statVal { font-family:'Cinzel',serif; font-size:2rem; font-weight:700; color:var(--ivory); display:block; }
+.statMod { font-family:'Cinzel',serif; font-size:.78rem; font-weight:700; color:var(--gold2); margin-top:3px; }
+
+/* Combat */
+.weaponNames { display:flex; gap:20px; font-family:'EB Garamond',serif; font-size:1rem; color:var(--iv2); }
+.weaponNames b { font-family:'Cinzel',serif; font-size:.7rem; color:var(--muted); font-weight:700; }
+
+/* Notes */
+.notes { font-family:'EB Garamond',serif; font-size:1rem; color:var(--iv2); line-height:1.6; white-space:pre-wrap; background:var(--s2); border:1px solid var(--br); border-radius:4px; padding:10px 14px; }
+
+@media (max-width:700px) {
+  .twoCol { grid-template-columns:1fr; }
+  .statsGrid { grid-template-columns:repeat(2,1fr); }
+}

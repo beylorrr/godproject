@@ -1,0 +1,173 @@
+/* GMFight.module.css — поле бою майстра в тонах кованого гримуару */
+
+.toolbar { display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap; }
+.title {
+  font-family:'Cinzel Decorative',serif; font-size:1.3rem; color:var(--gold2); margin:0;
+  text-shadow:0 0 18px rgba(160,30,30,.4), 0 0 6px rgba(212,176,72,.2);
+  display:flex; align-items:center; gap:10px;
+}
+.title svg { color:var(--gold3); filter:drop-shadow(0 0 4px rgba(212,176,72,.35)); }
+.addBtn {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+  background:linear-gradient(180deg, var(--s3), var(--s1));
+  border:1px solid var(--br2); border-radius:3px; color:var(--iv2);
+  padding:8px 16px; cursor:pointer; transition:all .14s;
+  box-shadow:0 2px 6px rgba(0,0,0,.4), inset 0 1px 0 rgba(212,176,72,.08);
+}
+.addBtn:hover { border-color:var(--gold4); color:var(--gold2); }
+.toolHint { font-family:'EB Garamond',serif; font-style:italic; font-size:.8rem; color:var(--muted); }
+
+/* ── Поле бою: вільне полотно для перетягування ── */
+.field {
+  position:relative; min-height:72vh; overflow:auto;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(110,20,20,.08), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(212,176,72,.035) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(212,176,72,.035) 39px 40px),
+    var(--s1);
+  border:1px solid var(--br2); border-radius:4px;
+  box-shadow: inset 0 0 40px rgba(0,0,0,.5);
+}
+.empty {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:'EB Garamond',serif; font-style:italic; color:var(--muted); font-size:.95rem;
+  pointer-events:none; text-align:center; padding:20px;
+}
+
+/* ── Картка ворога: кована рама зі скобами ── */
+.card {
+  position:absolute; width:330px; max-width:92%;
+  background:
+    radial-gradient(ellipse 120% 40% at 50% 0%, rgba(110,20,20,.12), transparent 60%),
+    linear-gradient(165deg, #181214, #100c0e);
+  border:1px solid var(--br2); border-radius:3px;
+  box-shadow:0 8px 26px rgba(0,0,0,.6), inset 0 1px 0 rgba(212,176,72,.07);
+}
+.card::before, .card::after { content:''; position:absolute; width:12px; height:12px; pointer-events:none; z-index:1; }
+.card::before { top:-1px; left:-1px; border-top:2px solid var(--gold3); border-left:2px solid var(--gold3); }
+.card::after  { bottom:-1px; right:-1px; border-bottom:2px solid var(--gold3); border-right:2px solid var(--gold3); }
+
+/* Смуга перетягування з назвою */
+.cardHead {
+  display:flex; align-items:center; gap:7px;
+  padding:8px 10px;
+  background:
+    radial-gradient(ellipse 80% 160% at 50% -60%, rgba(110,20,20,.32), transparent 65%),
+    linear-gradient(to right, var(--s1), var(--s3) 70%, var(--s1));
+  border-bottom:1px solid var(--blood);
+  cursor:grab; touch-action:none; user-select:none;
+}
+.cardHead:active { cursor:grabbing; }
+.grip { color:var(--gold4); flex-shrink:0; }
+.nameInput {
+  flex:1; min-width:0;
+  font-family:'Cinzel Decorative',serif; font-size:.92rem; font-weight:700; color:var(--gold2);
+  background:transparent; border:none; outline:none;
+  text-shadow:0 0 10px rgba(160,30,30,.4);
+}
+.nameInput::placeholder { color:var(--muted); font-family:'EB Garamond',serif; font-style:italic; font-weight:400; }
+.headBtn {
+  width:24px; height:24px; flex-shrink:0;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--s2); border:1px solid var(--br2); border-radius:4px;
+  color:var(--iv3); cursor:pointer; transition:all .12s;
+}
+.headBtn:hover { border-color:var(--gold4); color:var(--gold2); }
+.headBtnDel:hover { border-color:var(--blood2); color:var(--ember2); }
+
+/* ХП: база − втрачено = поточне + швидке віднімання */
+.hpRow {
+  display:flex; align-items:center; gap:5px; flex-wrap:wrap;
+  padding:9px 10px; border-bottom:1px solid var(--br);
+}
+.hpLabel {
+  display:inline-flex; align-items:center; gap:4px;
+  font-family:'Cinzel',serif; font-size:.62rem; font-weight:700; letter-spacing:.06em;
+  color:#c05050;
+}
+.hpBase, .hpLost {
+  width:58px; padding:4px 5px; text-align:center;
+  font-family:'Cinzel',serif; font-size:.8rem;
+  background:var(--s1); border:1px solid var(--br2); border-radius:4px; color:var(--ivory);
+}
+.hpSep { color:var(--muted); font-size:.85rem; }
+.hpCur {
+  min-width:46px; text-align:center; padding:3px 7px;
+  font-family:'Cinzel',serif; font-size:1.02rem; font-weight:700; color:var(--gold2);
+  background:var(--s2); border:1px solid var(--gold4); border-radius:4px;
+  text-shadow:0 -1px 1px rgba(0,0,0,.85), 0 0 12px rgba(212,176,72,.2);
+}
+.hpDead { color:var(--ember2); border-color:var(--blood2); text-shadow:0 0 12px rgba(160,30,30,.6); }
+.dmgInput {
+  width:72px; margin-left:auto; padding:4px 6px;
+  font-family:'Cinzel',serif; font-size:.74rem; text-align:center;
+  background:var(--s1); border:1px solid var(--br2); border-radius:4px; color:var(--ivory);
+}
+.dmgInput::placeholder { color:var(--muted); }
+.dmgBtn {
+  width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 35% 30%, var(--s5), var(--s2) 70%);
+  border:1px solid var(--blood2); border-radius:50%;
+  color:var(--ember2); cursor:pointer; transition:all .12s;
+  box-shadow:0 2px 5px rgba(0,0,0,.5);
+}
+.dmgBtn:hover { box-shadow:0 0 10px rgba(160,30,30,.4); color:#ff7050; }
+
+/* OM/MT та стати */
+.resRow {
+  display:flex; flex-wrap:wrap; gap:5px;
+  padding:8px 10px; border-bottom:1px solid var(--br);
+}
+.resPill, .statPill {
+  display:inline-flex; align-items:center; gap:4px;
+  font-family:'Cinzel',serif; font-size:.6rem; font-weight:700; letter-spacing:.04em;
+  color:var(--iv3);
+  background:var(--s2); border:1px solid var(--br); border-radius:4px;
+  padding:3px 5px 3px 7px;
+}
+.resPill svg { color:var(--gold3); }
+.resPill input, .statPill input {
+  width:42px; padding:2px 3px; text-align:center;
+  font-family:'Cinzel',serif; font-size:.74rem;
+  background:var(--s1); border:1px solid var(--br); border-radius:3px; color:var(--ivory);
+}
+
+/* Таблиця уражень */
+.dmgTable {
+  width:calc(100% - 20px); margin:8px 10px; border-collapse:collapse;
+  font-family:'Cinzel',serif; font-size:.7rem;
+}
+.dmgTable th {
+  font-size:.58rem; font-weight:700; letter-spacing:.04em; color:var(--muted);
+  padding:3px 2px; border-bottom:1px solid var(--blood); cursor:help;
+}
+.dmgTable td {
+  text-align:center; padding:4px 2px; color:var(--ivory);
+  border-bottom:1px solid var(--br);
+}
+.dmgKind { font-weight:700; color:var(--gold3) !important; text-align:left !important; }
+.dmgTable tr:last-child td { border-bottom:none; }
+
+/* Ефекти */
+.effects { padding:6px 10px 10px; display:flex; flex-direction:column; gap:4px; }
+.effectRow { display:flex; align-items:center; gap:6px; }
+.effectDot { color:#c89050; font-size:.6rem; flex-shrink:0; }
+.effectRow input {
+  flex:1; min-width:0; padding:4px 7px;
+  font-family:'EB Garamond',serif; font-size:.84rem;
+  background:var(--s1); border:1px solid var(--br); border-radius:4px; color:var(--iv2);
+}
+.effectRow input::placeholder { color:var(--muted); font-style:italic; }
+.effectDel {
+  width:20px; height:20px; flex-shrink:0;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:none; border:none; color:var(--muted); cursor:pointer;
+}
+.effectDel:hover { color:var(--ember2); }
+.effectAdd {
+  align-self:flex-start; display:inline-flex; align-items:center; gap:4px;
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.08em; text-transform:uppercase;
+  background:none; border:none; color:var(--muted); cursor:pointer; padding:3px 0;
+}
+.effectAdd:hover { color:var(--gold2); }

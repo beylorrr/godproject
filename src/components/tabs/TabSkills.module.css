@@ -1,0 +1,20 @@
+.ptsBar {
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--s2); border:1px solid var(--br2); border-radius:6px;
+  padding:9px 16px; margin-bottom:14px;
+}
+.ptsLabel { font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.ptsVal { font-family:'Cinzel Decorative',serif; font-size:1.6rem; font-weight:700; }
+
+/* Адаптивна сітка: вкладається стільки колонок, скільки влізе по ≥230px.
+   Це прибирає обрізання/наповзання стовпчиків на вузьких контейнерах. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+/* 6 категорій: 3×2 на широкому, 2×3 на середньому, стовпчик на мобільному */
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }

@@ -1,0 +1,69 @@
+.panel {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 9px;
+  max-width: 980px;
+  margin: 0 auto 6px;
+  width: 100%;
+  padding: 12px 18px 4px;
+}
+
+.chip {
+  border-radius: 8px;
+  padding: 9px 10px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 3px 12px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+}
+.chip::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,.12), transparent 70%);
+  pointer-events: none;
+}
+.chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.label {
+  font-family: 'Cinzel', serif;
+  font-size: .56rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .8;
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.val {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,.5);
+}
+.valInput {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  max-width: 64px;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 5px;
+  padding: 2px 4px;
+  text-shadow: 0 1px 8px rgba(0,0,0,.5);
+}
+.valInput:focus { outline: none; border-color: var(--gold4); background: rgba(0,0,0,.4); }
+
+@media (max-width: 640px) {
+  .panel { grid-template-columns: repeat(3, 1fr); gap: 7px; padding: 10px 12px 4px; }
+  .val { font-size: 1.1rem; }
+}

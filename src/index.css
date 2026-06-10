@@ -1,0 +1,1041 @@
+/* ═══════════════════════════════════════════════════
+   index.css — Dark Fantasy Design System
+   Більші шрифти, яскравіші кольори, fantasy стиль
+═══════════════════════════════════════════════════ */
+
+:root {
+  --bg:    #08060a;
+  --bg2:   #0d0a0e;
+  --s1:    #120f12;
+  --s2:    #1a151a;
+  --s3:    #231d22;
+  --s4:    #2e2730;
+  --s5:    #3d3540;
+  --br:    #3a3030;
+  --br2:   #524238;
+  --gold:  #b89030;
+  --gold2: #d4b048;
+  --gold3: #8a6418;
+  --gold4: #5e400c;
+  --ember: #a83518;
+  --ember2:#c44020;
+  --blood: #6e1414;
+  --blood2:#a01e1e;
+  --arcane:#5a3a9e;
+  --ivory: #d8ccb4;
+  --iv2:   #bcaa8a;
+  --iv3:   #9a8460;
+  --muted: #6e5e4e;
+  --green: #3a7a20;
+  --green2:#5a9c30;
+  --r:     4px;
+
+  /* Кольори ресурсів — приглушені, дарк-фентезі */
+  --hp-color: #a01e1e;
+  --mp-color: #2e4a9e;
+  --pr-color: #6a6a6a;
+  --mr-color: #7a3098;
+  --mt-color: #248050;
+  --ed-color: #3e8e18;
+
+  /* Декоративні золоті градієнти */
+  --gold-grad: linear-gradient(135deg, #f5c84a 0%, #b8841a 50%, #e8a830 100%);
+  --gold-line: linear-gradient(to right, transparent, var(--gold3), var(--gold2), var(--gold3), transparent);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--ivory);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse 130% 70% at 50% -15%, rgba(110,20,20,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 60% at 100% 110%, rgba(90,58,158,0.10), transparent 55%),
+    radial-gradient(ellipse 100% 80% at 0% 100%, rgba(110,20,20,0.20), transparent 55%),
+    linear-gradient(180deg, #0a0708 0%, #08060a 50%, #060406 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+/* М'яка він'єтка по краях екрана для глибини */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: inset 0 0 200px 40px rgba(0,0,0,0.7);
+}
+#root { position: relative; z-index: 2; }
+
+/* ═══════════════════════════════════════════════════
+   АНІМАЦІЇ — дарк-фентезі рух
+═══════════════════════════════════════════════════ */
+@keyframes fadeInUp   { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn     { from { opacity:0; } to { opacity:1; } }
+@keyframes scaleIn    { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:scale(1); } }
+@keyframes goldPulse  { 0%,100% { box-shadow:0 0 0 0 rgba(245,200,74,.0); } 50% { box-shadow:0 0 18px 2px rgba(245,200,74,.35); } }
+@keyframes emberFlicker { 0%,100% { opacity:1; } 50% { opacity:.82; } }
+@keyframes shimmer    { 0% { background-position:-200% 0; } 100% { background-position:200% 0; } }
+@keyframes floatUp    { from { opacity:0; transform:translate(-50%, 12px); } to { opacity:1; transform:translate(-50%, 0); } }
+@keyframes barSheen   { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
+@keyframes bloodPulse { 0%,100% { box-shadow:inset 0 1px 3px rgba(0,0,0,.8), 0 0 0 0 rgba(160,30,30,0); } 50% { box-shadow:inset 0 1px 3px rgba(0,0,0,.8), 0 0 10px 1px rgba(160,30,30,.55); } }
+
+/* Дрібні утиліти */
+.anim-pop { animation: scaleIn .25s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+/* На мобільних fixed-фон спричиняє лаги скролу — фіксуємо лише на десктопі */
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
+  body::after { box-shadow: inset 0 0 120px 30px rgba(0,0,0,0.7); }
+  /* блиск барів вимикаємо — постійна анімація б'є по плавності скролу */
+  .resBarFill::after { animation: none; display: none; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar          { width: 8px; height: 8px; }
+::-webkit-scrollbar-track    { background: var(--bg2); }
+::-webkit-scrollbar-thumb    { background: linear-gradient(var(--br2), var(--gold4)); border-radius: 4px; border: 1px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(var(--gold4), var(--gold3)); }
+* { scrollbar-width: thin; scrollbar-color: var(--gold4) var(--bg2); }
+
+/* Прибираємо дефолтні браузерні стрілки (spinner) на полях type=number */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+/* ── Base ─────────────────────────────────────────── */
+button   { cursor: pointer; font-family: 'Cinzel', serif; }
+a        { color: var(--gold3); text-decoration: none; }
+a:hover  { color: var(--gold2); }
+
+input, textarea, select {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1rem;
+  color: var(--ivory);
+  background: var(--s1);
+  border: 1px solid var(--br);
+  border-radius: var(--r);
+  outline: none;
+  transition: border-color .18s, box-shadow .18s, background .18s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--gold3);
+  background: var(--s2);
+  box-shadow: 0 0 0 2px rgba(245,200,74,0.16), 0 0 14px rgba(232,168,48,0.12);
+}
+input[readonly], input[disabled] { opacity: .55; cursor: default; }
+textarea { resize: vertical; }
+select option { background: var(--s2); }
+
+/* Прибираємо синє підсвічування тапу на мобільних */
+* { -webkit-tap-highlight-color: rgba(245,200,74,.12); }
+
+/* ═══════════════════════════════════════════════════
+   SECTION TITLE — яскравий розділювач
+═══════════════════════════════════════════════════ */
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 14px;
+  padding-bottom: 6px;
+  text-shadow: 0 0 12px rgba(245,200,74,.25);
+}
+.section-title::before,
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background:
+    linear-gradient(to right, transparent, rgba(160,30,30,.45) 55%, var(--gold4)) center / 100% 1px no-repeat;
+}
+.section-title::before {
+  background:
+    linear-gradient(to left, transparent, rgba(160,30,30,.45) 55%, var(--gold4)) center / 100% 1px no-repeat;
+}
+.section-title .ornament {
+  flex: 0 0 auto;
+  color: var(--gold2);
+  font-size: .9rem;
+  text-shadow: 0 0 10px rgba(245,200,74,.5);
+  animation: emberFlicker 3s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════
+   FIELD
+═══════════════════════════════════════════════════ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.field label {
+  font-family: 'Marcellus', serif;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field input, .field select, .field textarea { padding: 8px 11px; font-size: 1rem; }
+.field textarea { min-height: 64px; }
+
+/* ═══════════════════════════════════════════════════
+   GRIDS
+═══════════════════════════════════════════════════ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+
+/* ═══════════════════════════════════════════════════
+   PIP BUTTONS +/−
+═══════════════════════════════════════════════════ */
+.pip-btn {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, var(--s5), var(--s2) 70%);
+  border: 1px solid var(--br2);
+  color: var(--iv2);
+  font-size: 1.1rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .12s;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,.5), inset 0 1px 0 rgba(212,176,72,.12);
+}
+.pip-btn:hover:not(:disabled) { border-color: var(--blood2); color: var(--gold2); }
+.pip-btn:hover:not(:disabled) {
+  background: var(--s5);
+  border-color: var(--gold3);
+  color: var(--gold2);
+  box-shadow: 0 0 12px rgba(232,168,48,.3);
+  transform: scale(1.08);
+}
+.pip-btn:active:not(:disabled) { transform: scale(.94); }
+.pip-btn:disabled { opacity: .3; cursor: not-allowed; }
+.skill-cost-tooltip {
+  position: absolute;
+  bottom: 110%; left: 50%; transform: translateX(-50%);
+  background: var(--s1);
+  border: 1px solid var(--gold4);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-family: 'Cinzel', serif;
+  font-size: .55rem;
+  letter-spacing: .06em;
+  color: var(--gold2);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s;
+  z-index: 100;
+}
+.pip-btn-plus:hover .skill-cost-tooltip { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════
+   STAT BOX
+═══════════════════════════════════════════════════ */
+.stat-box {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(110,20,20,.10), transparent 65%),
+    linear-gradient(160deg, var(--s4) 0%, var(--s2) 100%);
+  border: 1px solid var(--br2);
+  border-radius: 3px;
+  padding: 13px 8px;
+  text-align: center;
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(212,176,72,.08),
+    inset 0 0 22px rgba(0,0,0,.45);
+  position: relative;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.stat-box::before, .stat-box::after {
+  content: ''; position: absolute; width: 9px; height: 9px; pointer-events: none;
+}
+.stat-box::before { top: -1px; left: -1px; border-top: 2px solid var(--gold4); border-left: 2px solid var(--gold4); }
+.stat-box::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold4); border-right: 2px solid var(--gold4); }
+.stat-box:hover {
+  border-color: var(--gold4);
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.6),
+    0 0 18px rgba(160,30,30,.18),
+    inset 0 1px 0 rgba(212,176,72,.12),
+    inset 0 0 22px rgba(0,0,0,.45);
+  transform: translateY(-1px);
+}
+.stat-box-label {
+  font-family: 'Marcellus', serif;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: block;
+}
+.stat-box-val {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ivory);
+  display: block;
+  line-height: 1;
+  text-shadow:
+    0 -1px 1px rgba(0,0,0,.85),
+    0 1px 0 rgba(212,176,72,.18),
+    0 0 22px rgba(212,176,72,.14);
+}
+.stat-box-mod {
+  font-family: 'Cinzel', serif;
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--gold2);
+  margin-top: 4px;
+  letter-spacing: .06em;
+}
+
+/* ═══════════════════════════════════════════════════
+   FAME CHIPS
+═══════════════════════════════════════════════════ */
+.fame-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 8px; }
+.fame-chip { border-radius: 5px; padding: 9px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.fame-chip-label {
+  font-family: 'Cinzel', serif;
+  font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+  opacity: .75; display: block; margin-bottom: 5px;
+}
+.fame-chip-input {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.4rem; font-weight: 700;
+  background: transparent; border: none;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  width: 100%; text-align: center; outline: none;
+}
+.fame-chip-input:focus { border-bottom-color: rgba(255,255,255,.5); }
+
+/* ═══════════════════════════════════════════════════
+   SKILL CATEGORIES
+═══════════════════════════════════════════════════ */
+/* ═══ Кований гримуар: панель категорії з кутовими скобами ═══ */
+.skill-category-card {
+  background:
+    radial-gradient(ellipse 120% 40% at 50% 0%, rgba(110,20,20,.10), transparent 60%),
+    linear-gradient(180deg, rgba(60,48,38,.22), transparent 55%),
+    var(--s2);
+  border: 1px solid var(--br2);
+  border-radius: 3px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.5), inset 0 1px 0 rgba(212,176,72,.07);
+  position: relative;
+}
+.skill-category-card::before,
+.skill-category-card::after {
+  content: ''; position: absolute; width: 13px; height: 13px; pointer-events: none; z-index: 1;
+}
+.skill-category-card::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--gold3); border-left: 2px solid var(--gold3);
+  box-shadow: -1px -1px 6px rgba(212,176,72,.15);
+}
+.skill-category-card::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--gold3); border-right: 2px solid var(--gold3);
+  box-shadow: 1px 1px 6px rgba(212,176,72,.15);
+}
+.skill-cat-title {
+  font-family: 'Cinzel', serif;
+  font-size: .76rem; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold2);
+  background:
+    radial-gradient(ellipse 80% 160% at 50% -60%, rgba(110,20,20,.30), transparent 65%),
+    linear-gradient(to right, var(--s1), var(--s3) 70%, var(--s1));
+  padding: 10px 15px;
+  display: flex; align-items: center; gap: 9px;
+  border-bottom: 1px solid var(--blood);
+  text-shadow: 0 0 10px rgba(212,176,72,.25);
+}
+.skill-cat-icon { color: var(--gold3); filter: drop-shadow(0 0 4px rgba(212,176,72,.35)); flex-shrink: 0; }
+.skill-gate-ico { color: var(--gold3); margin-right: 5px; vertical-align: -1px; }
+.skill-lock-badge svg { vertical-align: -1px; }
+.skill-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 12px;
+  border-bottom: 1px solid rgba(58,50,34,.5);
+  transition: background .1s;
+}
+.skill-row:last-child { border-bottom: none; }
+.skill-row:hover { background: rgba(58,50,34,.35); }
+.skill-row.has-level { background: rgba(232,168,48,.06); }
+.skill-row-name {
+  font-family: 'EB Garamond', serif;
+  font-size: .95rem;
+  line-height: 1.15;
+  color: var(--iv2);
+  flex: 1;
+  min-width: 0;                 /* дозволяє стискатись у flex */
+  overflow-wrap: break-word;    /* довгі назви переносяться, а не вилазять */
+  cursor: default;
+  user-select: none;
+}
+.skill-gate-key { color: var(--gold2) !important; font-weight: 700; }
+.skill-row-right {
+  display: flex; align-items: center; gap: 4px;
+  min-width: 55px; justify-content: flex-end;
+}
+.skill-lvl-badge {
+  font-family: 'Cinzel Decorative', serif; font-size: .82rem; font-weight: 700;
+  background: var(--gold-grad); color: #1a1008;
+  border-radius: 10px; padding: 3px 12px;
+  display: inline-flex; align-items: center; gap: 3px;
+  box-shadow: 0 2px 8px rgba(232,168,48,.45);
+  letter-spacing: .03em;
+}
+.skill-max-badge {
+  font-family: 'Cinzel', serif; font-size: .58rem; font-weight: 700;
+  letter-spacing: .1em;
+  background: var(--gold); color: var(--bg);
+  border-radius: 10px; padding: 2px 8px;
+  display: inline-flex;
+}
+.skill-0-badge { font-family: 'Cinzel', serif; font-size: .68rem; color: var(--muted); }
+.skill-lock-badge { font-size: .8rem; opacity: .5; }
+.skill-row-btns { display: flex; gap: 4px; flex-shrink: 0; align-items: center; }
+
+/* Tooltip */
+.skill-tooltip-global {
+  position: fixed;
+  background: linear-gradient(160deg, #1a1508, #110e06);
+  border: 1px solid var(--gold4);
+  border-radius: 5px;
+  padding: 9px 13px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem; line-height: 1.55;
+  color: var(--iv2);
+  z-index: 9999; max-width: 280px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.8);
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   DAMAGE TABLE
+═══════════════════════════════════════════════════ */
+.dmg-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.dmg-table th {
+  font-family: 'Cinzel', serif; font-size: .6rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); padding: 5px 8px;
+  border-bottom: 1px solid var(--br2); text-align: center;
+  background: var(--s1);
+}
+.dmg-table td {
+  padding: 5px 8px; text-align: center;
+  color: var(--iv2); font-family: 'Cinzel', serif;
+  font-size: .82rem; border-bottom: 1px solid rgba(58,50,34,.35);
+}
+.dmg-table tbody tr:first-child td {
+  background: rgba(232,168,48,.1);
+  font-weight: 700; color: var(--gold2); font-size: 1rem;
+}
+/* Вертикальний роздільник між правою і лівою рукою (4-та колонка = «Заг» правої) */
+.dmg-table th:nth-child(4), .dmg-table td:nth-child(4) {
+  border-right: 2px solid var(--br2);
+  padding-right: 12px;
+}
+.dmg-table th:nth-child(5), .dmg-table td:nth-child(5) { padding-left: 12px; }
+/* Заголовки рук — чіткіше розділені */
+.dmg-table thead tr:first-child th { border-right: 1px solid var(--br2); font-size: .64rem; color: var(--gold3); }
+.dmg-table thead tr:first-child th:first-child { border-right: 2px solid var(--br2); }
+
+/* ═══════════════════════════════════════════════════
+   ARMOR GRID
+═══════════════════════════════════════════════════ */
+.armor-scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  width: 100%; margin-bottom: 8px;
+}
+.armor-scroll::-webkit-scrollbar { height: 4px; }
+.armor-scroll::-webkit-scrollbar-thumb { background: var(--br2); border-radius: 2px; }
+.armor-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 2fr 88px;
+  border: 1px solid var(--br2); border-radius: 5px;
+  overflow: hidden; min-width: 480px;
+}
+.armor-header {
+  font-family: 'Cinzel', serif; font-size: .6rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: var(--s1); padding: 6px 8px;
+  color: var(--muted); border-right: 1px solid var(--br);
+  border-bottom: 1px solid var(--br); text-align: center; font-weight: 600;
+}
+.armor-header:last-child { border-right: none; }
+.slot-name {
+  font-family: 'Cinzel', serif; font-size: .65rem; color: var(--iv3);
+  text-transform: uppercase; letter-spacing: .06em;
+  display: flex; align-items: center;
+  padding: 5px 10px; background: rgba(0,0,0,.3);
+  border-right: 1px solid var(--br); border-bottom: 1px solid var(--br);
+}
+.armor-cell {
+  padding: 3px 6px; border-right: 1px solid var(--br);
+  border-bottom: 1px solid var(--br); display: flex; align-items: center;
+}
+.armor-cell:last-child { border-right: none; }
+.armor-cell input {
+  font-family: 'EB Garamond', serif; font-size: .95rem;
+  background: transparent; border: none;
+  border-bottom: 1px solid var(--br);
+  width: 100%; color: var(--ivory); outline: none;
+  padding: 2px 0; text-align: center;
+}
+.armor-cell input:focus { border-bottom-color: var(--gold4); }
+
+/* ═══════════════════════════════════════════════════
+   INVENTORY
+═══════════════════════════════════════════════════ */
+.inv-header {
+  display: grid;
+  grid-template-columns: 1fr 58px 68px 60px 28px;
+  gap: 4px; padding: 4px 0 7px;
+  font-family: 'Cinzel', serif; font-size: .58rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--br2); margin-bottom: 4px;
+}
+.inv-row {
+  display: grid;
+  grid-template-columns: 1fr 58px 68px 60px 28px;
+  gap: 4px; margin-bottom: 4px;
+}
+.inv-input {
+  font-family: 'EB Garamond', serif; font-size: .97rem;
+  background: var(--s1); border: 1px solid var(--br);
+  border-radius: 3px; padding: 5px 9px;
+  color: var(--ivory); outline: none; width: 100%;
+}
+.inv-input:focus { border-color: var(--gold4); }
+.inv-delete {
+  background: transparent; border: none; color: var(--muted);
+  font-size: .78rem; transition: color .12s;
+  display: flex; align-items: center; justify-content: center; width: 28px;
+}
+.inv-delete:hover { color: var(--ember2); }
+
+/* ═══════════════════════════════════════════════════
+   TRAIT / NOTE CARDS
+═══════════════════════════════════════════════════ */
+.trait-card-v2 {
+  background: var(--s2); border: 1px solid var(--br2);
+  border-radius: 5px; padding: 11px 13px; margin-bottom: 8px;
+}
+.note-field {
+  width: 100%; background: var(--s1); border: 1px solid var(--br);
+  border-radius: var(--r); padding: 8px 11px;
+  color: var(--ivory); font-family: 'EB Garamond', serif;
+  font-size: 1rem; resize: vertical; outline: none; min-height: 64px;
+}
+.note-field:focus { border-color: var(--gold4); }
+
+/* ═══════════════════════════════════════════════════
+   SPELL CARD
+═══════════════════════════════════════════════════ */
+.spell-card {
+  background: var(--s2); border: 1px solid var(--br2);
+  border-radius: 5px; padding: 13px 15px; margin-bottom: 11px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.spell-card-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-top: 10px; }
+
+/* ═══════════════════════════════════════════════════
+   SAVE INDICATOR
+═══════════════════════════════════════════════════ */
+.save-indicator {
+  font-family: 'Cinzel', serif; font-size: .6rem;
+  letter-spacing: .1em; text-transform: uppercase; transition: color .3s;
+}
+.save-indicator.saving { color: var(--gold3); }
+.save-indicator.saved  { color: var(--green2); }
+.save-indicator.error  { color: var(--ember2); }
+.save-indicator.idle   { color: transparent; }
+
+/* ADD ROW BUTTON */
+.add-row-btn {
+  font-family: 'Cinzel', serif; font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: linear-gradient(180deg, var(--s3), var(--s1));
+  border: 1px solid var(--br2); border-radius: 3px;
+  color: var(--iv2);
+  cursor: pointer; padding: 8px 16px; transition: all .14s; display: inline-block;
+  box-shadow: 0 2px 6px rgba(0,0,0,.4), inset 0 1px 0 rgba(212,176,72,.08);
+}
+.add-row-btn:hover { border-color: var(--gold4); color: var(--gold2); }
+.add-row-btn:hover { color: var(--gold2); }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE — оптимізація під телефони
+═══════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  html, body { font-size: 15px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+  .fame-grid { grid-template-columns: 1fr 1fr; }
+  .stat-box-val { font-size: 1.8rem; }
+  .spell-card-grid { grid-template-columns: 1fr 1fr; }
+  .inv-header, .inv-row { grid-template-columns: 1fr 48px 58px 28px; }
+  .inv-header > :nth-child(4),
+  .inv-row > :nth-child(4) { display: none; }
+
+  /* Більші тач-таргети */
+  .pip-btn { width: 34px; height: 34px; font-size: 1.25rem; }
+  .skill-row { padding: 10px 12px; }
+  .add-row-btn { padding: 12px 0; }
+  button { min-height: 38px; }
+  .section-title { margin: 18px 0 12px; }
+
+  /* Безпечні зони iOS (нижній бар) */
+  .inv-input, .fame-chip-input, .armor-cell input { font-size: 16px; } /* запобігає зуму iOS */
+  .field input, .field select, .field textarea, input, select, textarea { font-size: 16px; }
+}
+
+@media (max-width: 380px) {
+  .grid-4 { grid-template-columns: 1fr; }
+  .fame-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Екіпірування: кнопки і модалка ── */
+.equip-btn {
+  margin-left: 8px; background: var(--s3); border: 1px solid var(--gold4);
+  border-radius: 5px; color: var(--gold2); font-family: 'Cinzel', serif;
+  font-size: .58rem; letter-spacing: .05em; padding: 3px 9px; cursor: pointer; transition: all .12s;
+}
+.equip-btn:hover { background: var(--s4); filter: brightness(1.15); }
+.equip-btn--off { border-color: var(--br2); color: var(--muted); }
+.equip-btn--off:hover { border-color: var(--ember2); color: var(--ember2); }
+.armor-equip-cell { display: flex; align-items: center; justify-content: center; padding: 2px; }
+
+.equip-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.62);
+  display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px;
+  backdrop-filter: blur(2px);
+}
+.equip-modal {
+  background: linear-gradient(165deg, var(--s2), var(--s1));
+  border: 1px solid var(--gold4); border-radius: 11px;
+  width: 100%; max-width: 440px; max-height: 80vh; display: flex; flex-direction: column;
+  box-shadow: 0 18px 50px rgba(0,0,0,.5);
+}
+.equip-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px; border-bottom: 1px solid var(--br);
+}
+.equip-modal-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: .95rem; color: var(--gold2); }
+.equip-modal-close {
+  background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; line-height: 1;
+}
+.equip-modal-close:hover { color: var(--ember2); }
+.equip-modal-empty { padding: 32px 20px; text-align: center; color: var(--muted); font-size: .85rem; line-height: 1.6; }
+.equip-modal-list { overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.equip-pick {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  background: var(--s2); border: 1px solid var(--br); border-left: 3px solid var(--br2);
+  border-radius: 7px; padding: 9px 12px; cursor: pointer; transition: all .12s;
+}
+.equip-pick:hover { border-color: var(--gold4); border-left-color: var(--gold4); background: var(--s3); }
+.picker-group { margin-bottom: 4px; }
+.picker-group + .picker-group { margin-top: 8px; }
+.picker-group-title {
+  font-family: 'Cinzel', serif; font-size: .64rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--gold3);
+  padding: 4px 6px 6px; border-bottom: 1px solid var(--br); margin-bottom: 6px;
+}
+.transfer-picks { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+.transfer-pick {
+  display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+  background: var(--s1); border: 1px solid var(--br); border-left: 3px solid var(--br2);
+  border-radius: 6px; padding: 8px 11px; cursor: pointer; transition: all .12s;
+}
+.transfer-pick:hover { border-color: var(--gold4); border-left-color: var(--gold4); background: var(--s2); }
+.transfer-pick--on { border-color: var(--gold4); border-left-color: var(--gold4); background: rgba(245,200,74,.1); }
+.transfer-pick-icon { font-size: 1rem; flex-shrink: 0; }
+.transfer-pick-name { flex: 1; font-family: 'EB Garamond', serif; font-size: .9rem; color: var(--ivory); }
+.transfer-pick-check { color: var(--gold2); font-weight: 700; }
+.equip-pick-icon { font-size: 1.1rem; flex-shrink: 0; }
+.equip-pick-name { flex: 1; font-family: 'Cinzel', serif; font-weight: 700; font-size: .86rem; color: var(--ivory); }
+.equip-pick-stats { display: inline-flex; gap: 9px; font-family: 'Cinzel', serif; font-size: .72rem; color: var(--iv3); flex-shrink: 0; }
+
+/* ── Тулбар інвентарю (фільтр типу + пошук) ── */
+.inv-toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.inv-type-chips { display: flex; gap: 4px; }
+.inv-type-chip {
+  background: var(--s2); border: 1px solid var(--br); border-radius: 5px;
+  color: var(--muted); font-size: .8rem; padding: 5px 10px; cursor: pointer; transition: all .12s;
+}
+.inv-type-chip:hover { border-color: var(--gold4); }
+.inv-type-chip--on { background: var(--s4); border-color: var(--gold4); color: var(--gold2); }
+.inv-search {
+  flex: 1; min-width: 120px; background: var(--s1); border: 1px solid var(--br);
+  border-radius: 5px; color: var(--ivory); font-size: .82rem; padding: 6px 10px;
+}
+.inv-search:focus { border-color: var(--gold4); outline: none; }
+
+/* ── Компактна картка предмета (формат бази майстра) ── */
+.item-card {
+  position: relative;
+  background: linear-gradient(160deg, var(--s2), var(--s1));
+  border: 1px solid var(--br);
+  border-left: 3px solid var(--br2);
+  border-radius: 8px;
+  padding: 9px 12px 9px 13px;
+  margin-bottom: 8px;
+  transition: border-color .14s, box-shadow .14s, transform .12s;
+}
+.item-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,.18); }
+/* Кольоровий акцент за типом предмета */
+.item-card--armor  { border-left-color: #8fb4d6; }
+.item-card--weapon { border-left-color: #e0894a; }
+.item-card--other  { border-left-color: var(--br2); }
+.item-card-editing { border-color: var(--gold4); border-left-color: var(--gold4); box-shadow: 0 0 0 2px rgba(245,200,74,.1); }
+
+.item-card-head { display: flex; align-items: center; gap: 9px; }
+.item-card-type { font-size: 1.05rem; line-height: 1; flex-shrink: 0; }
+.item-card-name { font-family: 'Cinzel', serif; font-weight: 700; font-size: .92rem; color: var(--ivory); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item-card-flags { display: inline-flex; gap: 4px; font-size: .78rem; flex-shrink: 0; }
+.item-card-actions { display: inline-flex; gap: 4px; flex-shrink: 0; }
+.item-card-btn {
+  background: var(--s3); border: 1px solid var(--br); border-radius: 5px;
+  color: var(--muted); font-size: .8rem; line-height: 1; padding: 4px 9px; cursor: pointer; transition: all .12s;
+}
+.item-card-btn:hover { color: var(--gold2); border-color: var(--gold4); background: var(--s4); }
+.item-card-btn-del:hover { color: var(--ember2); border-color: var(--ember2); }
+
+.item-card-stats {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-top: 7px;
+  font-family: 'Cinzel', serif; font-size: .73rem; color: var(--iv3);
+}
+.item-card-body { margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--br); }
+.item-card-desc { font-size: .82rem; color: var(--iv3); line-height: 1.4; margin-bottom: 4px; }
+.item-card-eff { font-size: .8rem; color: var(--muted); padding-left: 2px; }
+
+.item-edit-top { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.item-edit-type {
+  font-family: 'Cinzel', serif; font-size: .72rem; padding: 7px 8px;
+  background: var(--s3); border: 1px solid var(--br); border-radius: 6px; color: var(--ivory);
+  flex-shrink: 0; cursor: pointer;
+}
+.item-edit-props { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 4px; }
+.prop-toggle {
+  font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .04em;
+  padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all .14s;
+  background: var(--s1); border: 1px solid var(--br); color: var(--muted);
+}
+.prop-toggle:hover { border-color: var(--br2); color: var(--iv3); }
+.prop-toggle--magic   { background: rgba(168,127,232,.16); border-color: #a87fe8; color: #c4a8f0; }
+.prop-toggle--cursed  { background: rgba(214,90,90,.16);  border-color: #d65a5a; color: #e88a8a; }
+.prop-toggle--blessed { background: rgba(127,199,127,.16); border-color: #7fc77f; color: #a8d6a8; }
+.item-edit-flags { display: none; }
+.item-edit-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.item-edit-eff-head { display: flex; align-items: center; justify-content: space-between; margin: 11px 0 5px; font-family: 'Cinzel', serif; font-size: .7rem; color: var(--gold3); letter-spacing: .08em; text-transform: uppercase; }
+.item-edit-eff-row { display: flex; gap: 6px; align-items: center; margin-top: 5px; }
+.item-edit-foot { display: flex; gap: 8px; justify-content: flex-end; margin-top: 13px; }
+.item-save-btn {
+  background: linear-gradient(var(--gold3), var(--gold4)); border: none; border-radius: 6px;
+  color: var(--bg); font-family: 'Cinzel', serif; font-weight: 700; font-size: .72rem;
+  letter-spacing: .06em; padding: 7px 18px; cursor: pointer; transition: filter .12s;
+}
+.item-save-btn:hover { filter: brightness(1.1); }
+
+/* ── Картка предмета інвентаря (стара, для рецептів тощо) ── */
+.inv-card {
+  background: linear-gradient(165deg, var(--s2), var(--s1));
+  border: 1px solid var(--br);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.inv-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.inv-drag {
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+  padding: 0 2px;
+}
+.inv-drag:active { cursor: grabbing; }
+.inv-name-input {
+  flex: 1;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: var(--s1);
+  border: 1px solid var(--br);
+  border-radius: 5px;
+  padding: 8px 12px;
+  color: var(--ivory);
+  outline: none;
+  min-width: 0;
+}
+.inv-name-input:focus { border-color: var(--gold4); box-shadow: 0 0 0 2px rgba(245,200,74,.12); }
+.inv-transfer-btn {
+  flex-shrink: 0;
+  font-family: 'Cinzel', serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  background: linear-gradient(135deg, rgba(245,200,74,.16), rgba(232,168,48,.08));
+  border: 1px solid var(--gold4);
+  border-radius: 6px;
+  color: var(--gold2);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.inv-transfer-btn:hover {
+  background: linear-gradient(135deg, rgba(245,200,74,.28), rgba(232,168,48,.16));
+  box-shadow: 0 0 12px rgba(232,168,48,.25);
+}
+.inv-del-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--br);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: .8rem;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.inv-del-btn:hover { color: #fff; background: var(--ember2); border-color: var(--ember2); }
+.inv-card-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.inv-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 72px;
+}
+.inv-field > span {
+  font-family: 'Cinzel', serif;
+  font-size: .56rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.inv-field > input {
+  font-family: 'EB Garamond', serif;
+  font-size: .95rem;
+  background: var(--s1);
+  border: 1px solid var(--br);
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: var(--ivory);
+  outline: none;
+  width: 100%;
+  text-align: center;
+}
+.inv-field > input:focus { border-color: var(--gold4); }
+.inv-effect-input {
+  width: 100%;
+  font-family: 'EB Garamond', serif;
+  font-size: .92rem;
+  font-style: italic;
+  background: var(--s1);
+  border: 1px solid var(--br);
+  border-radius: 5px;
+  padding: 7px 12px;
+  color: var(--iv2);
+  outline: none;
+}
+.inv-effect-input:focus { border-color: var(--gold4); }
+.inv-effect-input::placeholder { font-style: italic; color: var(--muted); opacity: .6; }
+
+@media (max-width: 600px) {
+  .inv-card-top { flex-wrap: wrap; }
+  .inv-name-input { font-size: 16px; flex-basis: 100%; order: -1; margin-bottom: 6px; }
+  .inv-transfer-btn { flex: 1; }
+  .inv-field { min-width: 60px; }
+  .inv-field > input { font-size: 16px; }
+  .inv-effect-input { font-size: 16px; }
+}
+
+/* Кнопка "Зберегти розподіл" характеристик/вмінь */
+.commit-btn {
+  margin-left: auto;
+  font-family: 'Cinzel', serif; font-size: .7rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 8px 16px; border-radius: 7px; cursor: pointer;
+  background: linear-gradient(165deg, #2a1410, #160a08);
+  border: 1px solid var(--blood2); color: #d8a0a0;
+  transition: all .15s;
+}
+.commit-btn:hover:not(:disabled) { box-shadow: 0 0 14px rgba(160,30,30,.35); border-color: var(--ember2); color: var(--ivory); }
+.commit-btn:disabled { opacity: .45; cursor: default; border-color: var(--br); color: var(--muted); background: var(--s1); }
+.commit-hint {
+  font-family: 'EB Garamond', serif; font-size: .8rem; font-style: italic;
+  color: #c08080; margin: 4px 0 10px; text-align: right;
+}
+
+/* Поле прямого редагування цифр майстром (обходить блокування гравця) */
+.gm-num-edit {
+  font-family: 'EB Garamond', serif; font-size: 1.05rem; text-align: center;
+  color: var(--gold2); background: rgba(60,30,10,.35);
+  border: 1px solid var(--gold4); border-radius: 6px;
+  padding: 5px 8px; width: 70px; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.gm-num-edit:focus { border-color: var(--gold2); box-shadow: 0 0 10px rgba(212,176,72,.3); }
+.gm-num-edit.gm-num-big { width: 80px; font-size: 1.3rem; font-weight: 700; }
+
+/* ── Компактний табличний рядок предмета ── */
+.item-row {
+  background: var(--s1); border: 1px solid var(--br);
+  border-left: 3px solid var(--br2); border-radius: 6px;
+  padding: 7px 10px;
+  transition: border-color .12s, background .12s, transform .12s, box-shadow .12s;
+  height: 100%;
+}
+.item-row:hover { background: var(--s2); border-left-color: var(--blood2); }
+.inv-cell .item-row { height: auto; }
+.item-row.item-card--armor  { border-left-color: #4a6a8a; }
+.item-row.item-card--weapon { border-left-color: #b06a2a; }
+.item-row-main { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.item-row-type {
+  color: var(--gold3); flex-shrink: 0; display: inline-flex;
+  filter: drop-shadow(0 0 3px rgba(212,176,72,.3));
+}
+.item-card--armor  .item-row-type { color: #6f93b5; filter: drop-shadow(0 0 3px rgba(111,147,181,.35)); }
+.item-card--weapon .item-row-type { color: #c98445; filter: drop-shadow(0 0 3px rgba(201,132,69,.35)); }
+.item-row-name {
+  font-family: 'EB Garamond', serif; font-size: 1rem; font-weight: 600;
+  color: var(--ivory); flex-shrink: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.item-row-amt { font-family: 'Cinzel', serif; font-size: .8rem; color: var(--gold3); flex-shrink: 0; }
+.item-row-stats {
+  display: flex; align-items: center; gap: 8px; margin-left: auto;
+  font-family: 'Cinzel', serif; font-size: .7rem; color: var(--iv3);
+  flex-wrap: wrap; justify-content: flex-end;
+}
+.item-row-actions { display: flex; gap: 3px; flex-shrink: 0; margin-left: auto; }
+.item-row-main .item-row-stats + .item-row-actions { margin-left: 0; }
+.item-row-body {
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--br);
+}
+.item-row-desc { font-family: 'EB Garamond', serif; font-size: .82rem; color: var(--iv3); font-style: italic; }
+.item-row-eff { font-size: .78rem; color: #c89050; }
+
+/* ── Сітка інвентарю у дві колонки (masonry: без дір при різній висоті) ── */
+.inv-grid {
+  columns: 2;
+  column-gap: 7px;
+}
+.inv-cell {
+  min-width: 0;
+  break-inside: avoid;       /* картка не рветься між колонками */
+  margin-bottom: 7px;
+}
+.inv-cell--wide { column-span: all; }   /* редагування/панелі — на всю ширину */
+.inv-cell.dragging .item-row { opacity: .4; }
+.inv-cell.drag-over .item-row { border-top: 2px solid var(--gold2); transform: translateY(1px); }
+@media (max-width: 700px) {
+  .inv-grid { columns: 1; }
+}
+
+/* Панель переміщення між вкладками інвентарю */
+.move-panel {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  background: linear-gradient(165deg, #1f1810, #14100a);
+  border: 1px solid var(--gold4); border-radius: 7px;
+  padding: 10px 12px; margin: 6px 0 2px; animation: fadeIn .2s ease both;
+}
+.move-panel-label {
+  font-family: 'Cinzel', serif; font-size: .66rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--gold3);
+}
+.move-panel-opts { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+.move-panel-btn {
+  font-family: 'Cinzel', serif; font-size: .64rem; letter-spacing: .04em;
+  background: var(--s2); border: 1px solid var(--br2); border-radius: 5px;
+  color: var(--ivory); padding: 6px 11px; cursor: pointer; transition: all .12s;
+}
+.move-panel-btn:hover { border-color: var(--gold4); color: var(--gold2); background: var(--s3); }
+.move-panel-cancel {
+  font-family: 'Cinzel', serif; font-size: .6rem; text-transform: uppercase;
+  background: none; border: none; color: var(--muted); cursor: pointer;
+}
+.move-panel-cancel:hover { color: var(--ember2); }
+
+/* Видимий фокус для клавіатурної навігації */
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--gold4);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Вартість наступного рівня вміння — видима цифра біля кнопок */
+.skill-next-cost {
+  font-family: 'Cinzel', serif; font-size: .68rem; font-weight: 700;
+  color: var(--gold3); min-width: 20px; text-align: right;
+  cursor: help; opacity: .85;
+}
+
+/* Підтвердження видалення — друга стадія кнопки ✕ */
+.item-del-confirm {
+  width: auto !important; padding: 0 7px !important;
+  color: var(--ember2) !important; border-color: var(--blood2) !important;
+  font-family: 'Cinzel', serif; font-size: .58rem !important; font-weight: 700;
+  letter-spacing: .04em; white-space: nowrap;
+  box-shadow: 0 0 8px rgba(160,30,30,.35);
+}
+
+/* ── Вкладка "Знання": картки рецептів і технологій ── */
+.knowledge-card {
+  background: var(--s1); border: 1px solid var(--br);
+  border-left: 3px solid var(--gold4); border-radius: 6px;
+  padding: 9px 11px; margin-bottom: 7px;
+}
+.knowledge-row { display: flex; gap: 7px; align-items: center; margin-bottom: 6px; }
+.knowledge-desc {
+  width: 100%; resize: vertical; min-height: 44px;
+  font-family: 'EB Garamond', serif; font-size: .9rem; line-height: 1.35;
+  background: var(--s2); border: 1px solid var(--br); border-radius: 4px;
+  color: var(--iv2); padding: 7px 9px;
+  overflow-wrap: break-word;
+}
+.knowledge-desc::placeholder { color: var(--muted); font-style: italic; }

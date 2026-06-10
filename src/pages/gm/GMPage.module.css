@@ -1,0 +1,90 @@
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--s1);
+  border-right: 1px solid var(--br2);
+  display: flex; flex-direction: column;
+  padding: 20px 0;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.sideHeader {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 18px 20px;
+  border-bottom: 1px solid var(--br);
+  margin-bottom: 12px;
+}
+.gmBadge {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--gold4), var(--gold));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: .85rem; font-weight: 900; color: var(--bg);
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(232,168,48,.25);
+}
+.gmName {
+  font-family: 'Cinzel', serif; font-size: .85rem; font-weight: 700; color: var(--ivory);
+}
+.gmRole {
+  font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold3);
+}
+.nav { display: flex; flex-direction: column; gap: 3px; padding: 0 10px; flex: 1; }
+.navBtn {
+  font-family: 'Cinzel', serif; font-size: .75rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; border: none;
+  color: var(--muted); padding: 10px 14px;
+  text-align: left; border-radius: 5px;
+  cursor: pointer; transition: all .15s;
+}
+.navBtn:hover { background: var(--s3); color: var(--iv2); }
+.navActive {
+  background: linear-gradient(to right, var(--s4), var(--s3)) !important;
+  color: var(--gold2) !important;
+  border-left: 3px solid var(--gold);
+  box-shadow: inset 0 0 14px rgba(232,168,48,.08);
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: sticky; top: 0; height: auto; z-index: 50;
+    flex-direction: row; flex-wrap: nowrap; align-items: center;
+    padding: 8px 10px; border-right: none;
+    border-bottom: 1px solid var(--br2);
+    background: linear-gradient(180deg, var(--s2), var(--s1));
+    gap: 8px; overflow-x: auto;
+  }
+  .sideHeader { border-bottom: none; margin-bottom: 0; padding: 0 4px; flex-shrink: 0; }
+  .gmName, .gmRole { display: none; }
+  .gmBadge { width: 36px; height: 36px; }
+  .nav { flex-direction: row; padding: 0; gap: 4px; flex: 1; }
+  .navBtn { padding: 9px 12px; font-size: .64rem; white-space: nowrap; border-radius: 6px; min-height: 40px; }
+  .navActive { border-left: none; border-bottom: 2px solid var(--gold); }
+  .logoutBtn { margin: 0; flex-shrink: 0; padding: 9px 12px; }
+  .content { padding: 16px 14px calc(20px + env(safe-area-inset-bottom, 0)); }
+}
+.logoutBtn {
+  font-family: 'Cinzel', serif; font-size: .65rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  margin: 12px 14px 0; padding: 8px 14px;
+  cursor: pointer; transition: all .15s;
+}
+.logoutBtn:hover { color: var(--ember2); border-color: var(--ember); }
+
+/* Content */
+.content {
+  padding: 24px;
+  overflow-y: auto;
+  background: var(--bg);
+}

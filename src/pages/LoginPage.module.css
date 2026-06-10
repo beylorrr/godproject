@@ -1,0 +1,68 @@
+.page { min-height:100vh; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:20px;
+  position:relative; overflow:hidden;
+  background-image:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(110,20,20,.30), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 110%, rgba(90,58,158,.10), transparent 55%); }
+/* Туман, що повільно пливе */
+.page::before { content:''; position:absolute; inset:-50%; pointer-events:none; opacity:.5;
+  background:radial-gradient(ellipse 40% 30% at 30% 40%, rgba(40,30,30,.5), transparent 70%),
+            radial-gradient(ellipse 50% 35% at 70% 60%, rgba(30,20,30,.5), transparent 70%);
+  animation:fogDrift 28s ease-in-out infinite alternate; }
+@keyframes fogDrift { from{transform:translate(-3%,-2%) scale(1)} to{transform:translate(3%,2%) scale(1.08)} }
+.box { background:linear-gradient(165deg, #1a1410, #100b09); border:1px solid var(--blood); position:relative; z-index:1; border-radius:12px; padding:38px 40px;
+  width:100%; max-width:390px; box-shadow:0 20px 60px rgba(0,0,0,.75), inset 0 1px 0 rgba(245,200,74,.08); position:relative;
+  animation:scaleIn .4s ease both; }
+.box::before { content:''; position:absolute; top:0; left:20px; right:20px; height:1px;
+  background:var(--gold-line); }
+.orn { text-align:center; font-family:'Cinzel',serif; color:var(--gold3); font-size:.75rem; letter-spacing:.3em; margin:6px 0; }
+.title { font-family:'Uncial Antiqua','Cinzel Decorative',serif; font-size:1.5rem; color:var(--gold2); text-align:center; letter-spacing:.06em; margin:0;
+  text-shadow:0 0 20px rgba(160,30,30,.45), 0 0 8px rgba(212,176,72,.2); }
+.tabs { display:flex; border-bottom:1px solid var(--br); margin:22px 0 18px; }
+.tab { flex:1; font-family:'Cinzel',serif; font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  background:transparent; border:none; color:var(--muted); cursor:pointer; padding:8px 0 10px;
+  border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .15s; }
+.tab.active { color:var(--gold2); border-bottom-color:var(--blood2); }
+.err { background:rgba(201,74,28,.14); border:1px solid var(--ember); border-radius:4px; padding:10px 14px;
+  color:#f08060; font-family:'EB Garamond',serif; font-size:.92rem; font-style:italic; margin-bottom:14px;
+  animation:errIn .2s ease; }
+@keyframes errIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.hint { font-family:'EB Garamond',serif; font-size:.78rem; font-style:italic; color:var(--muted); margin:-8px 0 12px; }
+.btn { width:100%; font-family:'Cinzel',serif; font-size:.85rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  background:linear-gradient(to bottom,var(--gold2),var(--gold)); color:var(--bg); border:none; border-radius:4px;
+  padding:12px 0; cursor:pointer; box-shadow:0 3px 12px rgba(0,0,0,.4); transition:filter .15s; margin-top:4px;
+  min-height:44px; display:flex; align-items:center; justify-content:center; }
+.btn:hover:not(:disabled) { filter:brightness(1.1); }
+.btn:disabled { opacity:.45; cursor:not-allowed; }
+.spin { width:16px; height:16px; border:2px solid rgba(0,0,0,.2); border-top-color:var(--bg);
+  border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* Role selector */
+.roleRow {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px;
+}
+.roleLabel {
+  font-family: 'Cinzel', serif; font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.roleBtn {
+  flex: 1; font-family: 'Cinzel', serif; font-size: .72rem;
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  background: var(--s2); border: 1px solid var(--br);
+  border-radius: 4px; color: var(--muted);
+  padding: 8px 0; cursor: pointer; transition: all .15s;
+}
+.roleBtn:hover { border-color: var(--br2); color: var(--iv2); }
+.roleActive {
+  background: var(--s3) !important;
+  border-color: var(--gold4) !important;
+  color: var(--gold2) !important;
+  box-shadow: 0 0 8px rgba(232,168,48,.15);
+}
+
+/* Кутові скоби на скрині входу */
+.box::after { content:''; position:absolute; bottom:-1px; right:-1px; width:16px; height:16px;
+  border-bottom:2px solid var(--gold3); border-right:2px solid var(--gold3); pointer-events:none; }
+.corner { position:absolute; top:-1px; left:-1px; width:16px; height:16px;
+  border-top:2px solid var(--gold3); border-left:2px solid var(--gold3); pointer-events:none; }

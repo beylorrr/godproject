@@ -1,0 +1,6 @@
+node_modules/
+.env
+charsheet.db
+charsheet.db-wal
+charsheet.db-shm
+*.bak
